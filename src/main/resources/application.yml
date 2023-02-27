@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+mysql:
+  driver-class-name: software.aws.rds.jdbc.mysql.Driver
+  username: root
+  password:
+  write:
+    name: write
+    url: jdbc:mysql:aws://localhost:3306/read_write
+  read:
+    name: read
+    url: jdbc:mysql:aws://localhost:3306/read_only
