@@ -7,7 +7,7 @@ mysql:
   password:
   write:
     name: write
-    url: jdbc:mysql:aws://localhost:3306/read_write
+    url: jdbc:mysql:aws://{writer_cluster_endpoint}/test
   read:
     name: read
-    url: jdbc:mysql:aws://localhost:3306/read_only
+    url: jdbc:mysql:aws://{readonly_cluster_endpoint}/test

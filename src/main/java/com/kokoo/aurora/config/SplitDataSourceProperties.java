@@ -22,6 +22,8 @@ public class SplitDataSourceProperties {
     public static class Write {
         private String name;
         private String url;
+        private int maximumPoolSize;
+        private int minimumIdle;
     }
 
     @Getter
@@ -29,5 +31,7 @@ public class SplitDataSourceProperties {
     public static class Read {
         private String name;
         private String url;
+        private int maximumPoolSize;
+        private int minimumIdle;
     }
 }

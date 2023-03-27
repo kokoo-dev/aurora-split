@@ -21,8 +21,8 @@ public class SplitDataSourceConfig {
         SplitDataSourceProperties.Write write = splitDataSourceProperties.getWrite();
         SplitDataSourceProperties.Read read = splitDataSourceProperties.getRead();
 
-        DataSource writeDataSource = createDataSource(write.getUrl());
-        DataSource readDataSource = createDataSource(read.getUrl());
+        DataSource writeDataSource = createDataSource(write.getUrl(), write.getMaximumPoolSize(), write.getMinimumIdle());
+        DataSource readDataSource = createDataSource(read.getUrl(), read.getMaximumPoolSize(), read.getMinimumIdle());
 
         Map<Object, Object> dataSourceMap = new HashMap<>();
         dataSourceMap.put(write.getName(), writeDataSource);
@@ -39,12 +39,14 @@ public class SplitDataSourceConfig {
         return new LazyConnectionDataSourceProxy(splitRoutingDataSource);
     }
 
-    private DataSource createDataSource(String url) {
+    private DataSource createDataSource(String url, int maxPoolSize, int minIdle) {
         HikariDataSource hikariDataSource = new HikariDataSource();
         hikariDataSource.setDriverClassName(splitDataSourceProperties.getDriverClassName());
         hikariDataSource.setJdbcUrl(url);
         hikariDataSource.setUsername(splitDataSourceProperties.getUsername());
         hikariDataSource.setPassword(splitDataSourceProperties.getPassword());
+        hikariDataSource.setMaximumPoolSize(maxPoolSize);
+        hikariDataSource.setMinimumIdle(minIdle);
 
         return hikariDataSource;
     }
